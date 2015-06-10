@@ -1,0 +1,20 @@
+*.py[cod]
+
+.DS_Store
+
+# Installer Logs
+requirements.txt
+
+# Unit Test / Coverage Reports
+.coverage
+.tox
+nosetests.xml
+test.db
+
+# Swap Files
+.swp
+
+tmp/
+db_repository/
+landscaping.db
+test.db/
