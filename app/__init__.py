@@ -10,4 +10,5 @@ app.config.from_object('config')
 app.secret_key = app.config['SECRET_KEY']
 db = SQLAlchemy(app)
 
-from app import views
+from app.models import *
+from app.controllers import *

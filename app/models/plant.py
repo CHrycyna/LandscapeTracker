@@ -8,21 +8,58 @@ from app.utility import is_blank
 class Plant(db.Model):
     __tablename__ = 'plant'
     id = db.Column(db.Integer, primary_key=True)
-    name_commom = db.Column(db.String, nullable=False)
+    name_common = db.Column(db.String, nullable=False)
     name_botanical = db.Column(db.String, nullable=False)
     plant_type = db.Column(db.String, nullable=True)
-    plant_height = db.Column(db.Integer, nullable=True)
-    plant_width = db.Column(db.Integer, nullable=True)
+    zone = db.Column(db.String, nullable=True)
+    
+    plant_height_min = db.Column(db.Integer, nullable=True)
+    plant_height_max = db.Column(db.Integer, nullable=True)
+     
+    plant_width_min = db.Column(db.Integer, nullable=True)
+    plant_width_max = db.Column(db.Integer, nullable=True)
+    
     added_at = db.Column(db.DateTime, nullable=False)
     edited_at = db.Column(db.DateTime, nullable=False)
 
 
-    def __init__(self, name_commom=None, name_botanical=None):
-        self.name_commom = name_commom
+    def __init__(self, 
+    name_common=None, 
+    name_botanical=None, 
+    plant_type=None, 
+    zone=None, 
+    plant_height_min=None, 
+    plant_height_max=None, 
+    plant_width_min=None, 
+    plant_width_max=None):
+        self.name_common = name_common
         self.name_botanical = name_botanical
+        self.plant_type = plant_type
+        self.zone = zone
+        self.plant_height_min = plant_height_min
+        self.plant_height_max = plant_height_max
+        self.plant_width_min = plant_height_max
+        self.plant_width_max = plant_width_max
         self.added_at = datetime.now() 
         self.edited_at = datetime.now()
+        
+    def to_json(self):
+        return json.dumps(self.to_hash())
     
+    def to_hash(self):
+        format = '%Y-%m-%d %H:%M'
+        ret = { "name_common": self.name_common ,
+                "name_botanical": self.name_botanical,
+                "plant_type": self.plant_type,
+                "zone": self.zone,
+                "plant_height_min": self.plant_height_min,
+                "plant_height_max": self.plant_height_max,
+                "plant_width_min": self.plant_width_min,
+                "plant_width_max": self.plant_width_max,
+                "added_at": self.added_at.strftime(format),
+                "edited_at": self.edited_at.strftime(format) }
+        return ret
+        
     @staticmethod
     def find_by_botanical(name_botanical):
         return (Plant.query.filter(Plant.name_botanical == name_botanical).first())
@@ -43,3 +80,7 @@ class Plant(db.Model):
     @staticmethod
     def __passes_validations(plant):
         return( (not is_blank(plant.name_commom)) and (not is_blank(plant.name_botanical)) and (Plant.find_by_botanical(plant.name_botanical) == None) )
+        
+    @staticmethod
+    def all():
+        return (Plant.query.all())

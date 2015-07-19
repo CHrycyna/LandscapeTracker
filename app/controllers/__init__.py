@@ -1,1 +1,1 @@
-__all__ = ["test_controller", "user_controller", "workout_controller", "user_measurement_controller"]
+__all__ = ["user_controller", "plant_controller"]

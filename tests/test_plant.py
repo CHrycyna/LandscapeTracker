@@ -8,4 +8,5 @@ class TestPlant(TestHelper):
     def test_create_plant(self):
         p = Plant(name_commom='Feather Reed Grass', name_botanical="other")
         Plant.save_to_db(p)
-        #assert p != None
+        plant = Plant.find_by_botanical("other")
+        assert plant != None
