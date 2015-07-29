@@ -79,7 +79,7 @@ class Plant(db.Model):
     
     @staticmethod
     def __passes_validations(plant):
-        return( (not is_blank(plant.name_commom)) and (not is_blank(plant.name_botanical)) and (Plant.find_by_botanical(plant.name_botanical) == None) )
+        return( (not is_blank(plant.name_common)) and (not is_blank(plant.name_botanical)) and (Plant.find_by_botanical(plant.name_botanical) == None) )
         
     @staticmethod
     def all():
