@@ -8,13 +8,13 @@ from app.utility import is_blank
 class Zone(db.Model):
     __tablename__ = 'zone'
     id = db.Column(db.Integer, primary_key=True)
-    zone = db.Column(db.String, nullable=False)
+    label = db.Column(db.String, nullable=False)
     
     def __init__(self, zone=None):
-        self.zone = zone
+        self.label = zone
         
     def __passes_validations(zone):
-        return( (not is_blank(zone)) and (Zone.query.filter(Zone.zone == zone).first()) )
+        return( Zone.query.filter(Zone.label == zone.label).first() ) == None
     
     @staticmethod
     def save_to_db(zone):
