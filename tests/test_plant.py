@@ -6,13 +6,13 @@ from app.models.plant import Plant
 class TestPlant(TestHelper):
 
     def test_create_plant(self):
-        p = Plant(name_common='Feather Reed Grass', name_botanical="other")
+        p = Plant(group_id='999', plant_id='011', name_common='Feather Reed Grass', name_botanical="other")
         assert Plant.save_to_db(p) == True
         plant = Plant.find_by_botanical("other")
         assert plant != None
         
     def test_validation(self):
-        p1 = Plant(name_common='Feather Reed Grass', name_botanical="other")
+        p1 = Plant(group_id='999', plant_id='011', name_common='Feather Reed Grass', name_botanical="other")
         Plant.save_to_db(p1)
-        p2 = Plant(name_common='Feather Reed Grass', name_botanical="other")
+        p2 = Plant(group_id='999', plant_id='011', name_common='Feather Reed Grass', name_botanical="other")
         assert Plant.save_to_db(p2) == False

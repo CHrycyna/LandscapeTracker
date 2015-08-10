@@ -8,6 +8,8 @@ from app.utility import is_blank
 class Plant(db.Model):
     __tablename__ = 'plant'
     id = db.Column(db.Integer, primary_key=True)
+    group_id = db.Column(db.Integer, nullable=False)
+    plant_id = db.Column(db.Integer, nullable=False)
     name_common = db.Column(db.String, nullable=False)
     name_botanical = db.Column(db.String, nullable=False)
     plant_type = db.Column(db.String, nullable=True)
@@ -23,7 +25,9 @@ class Plant(db.Model):
     edited_at = db.Column(db.DateTime, nullable=False)
 
 
-    def __init__(self, 
+    def __init__(self,
+    group_id=None,
+    plant_id=None,
     name_common=None, 
     name_botanical=None, 
     plant_type=None, 
@@ -32,6 +36,8 @@ class Plant(db.Model):
     plant_height_max=None, 
     plant_width_min=None, 
     plant_width_max=None):
+        self.group_id = group_id
+        self.plant_id = plant_id
         self.name_common = name_common
         self.name_botanical = name_botanical
         self.plant_type = plant_type
